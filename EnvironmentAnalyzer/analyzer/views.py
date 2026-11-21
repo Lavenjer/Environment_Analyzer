@@ -1,3 +1,8 @@
 from django.shortcuts import render
 
-# Create your views here.
+def home(request):
+    context = {
+        'title': 'Environment Analyzer Dashboard',
+        'status': 'Active',
+    }
+    return render(request, 'analyzer/index.html', context)
