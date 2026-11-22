@@ -45,12 +45,12 @@
 
 <!-- Main content -->
 <div class="w3-main" style="margin-left:250px">
-  <div class="w3-text-teal w3-center w3-padding-32 w3-center">
+  <div class="w3-text-teal w3-center w3-padding-64 w3-center">
   <h2>Environment Index Analysis</h2>
 
 <form method="GET" action="{% url 'analysis' %}">
-    <input type="text" name="city" value="{{ city_query }}" placeholder="City (e.g., Paris)" required />
-    <input type="text" name="country" value="{{ country_query }}" placeholder="Country (optional, e.g., France)" />
+    <input type="text" name="city" value="{{ city_query }}" placeholder="City" required />
+    <input type="text" name="country" value="{{ country_query }}" placeholder="Country" />
     <button type="submit">Calculate Score</button>
 </form>
 
@@ -87,6 +87,57 @@
     </table>
 {% else %}
     <p>Enter a city above to calculate its Environmental Score.</p>
+{% endif %}
+</div>
+<div class="w3-text-teal w3-center">
+
+{% if co2_forecast %}
+    <h3>CO2 Emissions Trend & {{ co2_forecast.target_year }} Projection</h3>
+    <p>
+        Projected {{ co2_forecast.target_year }} Value:
+        <strong>{{ co2_forecast.projected_target }}</strong>
+        (Annual Trend: <strong>{{ co2_forecast.slope }}</strong> / yr)
+    </p>
+
+    <div style="max-width: 700px; margin: 20px auto;">
+        <canvas id="co2Chart"></canvas>
+    </div>
+
+    {{ co2_forecast|json_script:"co2-forecast-data" }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const forecast = JSON.parse(document.getElementById("co2-forecast-data").textContent);
+
+        new Chart(document.getElementById("co2Chart"), {
+            type: "line",
+            data: {
+                labels: forecast.labels,
+                datasets: [
+                    {
+                        label: "Historical CO2 Emissions",
+                        data: forecast.historical,
+                        borderColor: "#3B7359",
+                        backgroundColor: "#3B7359",
+                        tension: 0.2
+                    },
+                    {
+                        label: "Projected Trend (to " + forecast.target_year + ")",
+                        data: forecast.projected,
+                        borderColor: "#71d9aa",
+                        borderDash: [6, 6],
+                        tension: 0.2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: "Year" } },
+                    y: { title: { display: true, text: "CO2 Emissions" } }
+                }
+            }
+        });
+    </script>
 {% endif %}
 </div>
 

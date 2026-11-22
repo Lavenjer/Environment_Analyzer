@@ -3,6 +3,7 @@ from django.core.management import call_command
 from django.shortcuts import render
 from .models import OpenMeteoEcosystemData, WorldBankEnvironmentData
 from .services.environmental_index import EvaluationScale
+from .services.forecasting import project_indicator
 
 
 def _get_city_data(city_query, country_query=""):
@@ -109,8 +110,10 @@ def analysis(request):
     meteo_data, wb_data, city_display, error_msg = _get_city_data(city_query, country_query)
 
     score_data = None
+    co2_forecast = None
     if city_display and not error_msg:
         score_data = EvaluationScale(meteo_data, wb_data)
+        co2_forecast = project_indicator(wb_data, field_name="co2_emissions", target_year=2030)
 
     context = {
         "meteo_data": meteo_data,
@@ -120,6 +123,7 @@ def analysis(request):
         "city_display": city_display,
         "error_msg": error_msg,
         "score_data": score_data,
+        "co2_forecast": co2_forecast,
     }
     return render(request, "analyzer/analysis.html", context)
 
