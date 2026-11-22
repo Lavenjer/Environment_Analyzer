@@ -79,14 +79,19 @@ class Command(BaseCommand):
         }
 
         yearly_data = {}
+        session = requests.Session()
+
         for field_name, code in indicators.items():
             url = f"https://api.worldbank.org/v2/country/{country}/indicator/{code}"
             params = {"format": "json", "date": date_range, "per_page": 100}
-            response = requests.get(url, params=params, timeout=30)
-            response.raise_for_status()
-            payload = response.json()
+            try:
+                response = session.get(url, params=params, timeout=8)
+                response.raise_for_status()
+                payload = response.json()
+            except requests.RequestException as e:
+                self.stdout.write(self.style.WARNING(f"Skipped {code} for {country}: {e}"))
+                continue
 
-            # World Bank v2 returns [metadata, [records...]]
             if len(payload) < 2 or not payload[1]:
                 continue
 

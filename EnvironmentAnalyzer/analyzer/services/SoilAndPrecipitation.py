@@ -39,7 +39,7 @@ class Soil_and_Precipitation:
         # 1 if within 0-5mm or 40-60mm
         # 0 if 0mm or more than 60mm
         if (self.precipitation >= 10 and self.precipitation <= 20): return 3
-        elif (self.precipitation >=5 and self.precipitation < 10) or (self.precipitation > 20 and self.precipiation <= 40): return 2
+        elif (self.precipitation >=5 and self.precipitation < 10) or (self.precipitation > 20 and self.precipitation <= 40): return 2
         elif (self.precipitation > 0 and self.precipitation < 5) or (self.precipitation > 40 and self.precipitation <= 60): return 1
         elif (self.precipitation == 0 or self.precipitation > 60): return 0
         

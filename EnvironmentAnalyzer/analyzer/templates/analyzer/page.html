@@ -44,7 +44,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
-<div class="w3-main" style="margin-left:250px">
+<div class="w3-main w3-center" style="margin-left:250px">
 
   <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
@@ -55,13 +55,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
           type="text"
           name="city"
           value="{{ city_query }}"
-          placeholder="Enter a U.S. city (or leave blank for all)"
+          placeholder="City"
     />
         <input
         type="text"
         name="country"
         value="{{ country_query }}"
-        placeholder="Country (optional, e.g., Canada or CA)"
+        placeholder="Country"
     />
         <button type="submit">Search</button>
         <a href="{% url 'page' %}">Show All</a>
@@ -74,7 +74,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
       {% endif %}
 
       <h3>Open-Meteo Ecosystem Data</h3>
-      <table border="1" cellpadding="8" cellspacing="0">
+      <table border="1" cellpadding="8" cellspacing="0" style="margin: 0 auto;">
           <thead>
               <tr>
                   <th>Date</th>
@@ -97,8 +97,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
           </tbody>
       </table>
 
-<h3>World Bank Environmental Data (USA)</h3>
-<table border="1" cellpadding="8" cellspacing="0">
+<h3>World Bank Environmental Data (Entire Country)</h3>
+<table border="1" cellpadding="8" cellspacing="0" style="margin: 0 auto;"> 
     <thead>
         <tr>
             <th>Year</th>

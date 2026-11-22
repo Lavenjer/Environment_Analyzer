@@ -45,46 +45,50 @@
 
 <!-- Main content -->
 <div class="w3-main" style="margin-left:250px">
+  <div class="w3-text-teal w3-center w3-padding-32 w3-center">
+  <h2>Environment Index Analysis</h2>
 
-  <div class="w3-row w3-padding-64 w3-center">
-    <h1 class="w3-text-teal">Search Any U.S. City</h1>
-    <form method="GET" action="{% url 'analysis' %}">
-        <input
-            type="text"
-            name="city"
-            value="{{ city_query }}"
-            placeholder="Enter a U.S. city (e.g., Worcester, Austin, Denver)"
-        />
-        <input
-            type="text"
-            name="country"
-            value="{{ country_query }}"
-            placeholder="Country (optional, e.g., Canada or CA)"
-        />
-        <button type="submit">Analyze Region</button>
-    </form>
+<form method="GET" action="{% url 'analysis' %}">
+    <input type="text" name="city" value="{{ city_query }}" placeholder="City (e.g., Paris)" required />
+    <input type="text" name="country" value="{{ country_query }}" placeholder="Country (optional, e.g., France)" />
+    <button type="submit">Calculate Score</button>
+</form>
 
-    {% if error_msg %}
-        <p style="color: red;">{{ error_msg }}</p>
-    {% elif city_display %}
-        <p>Showing ecosystem data for <strong>{{ city_display }}</strong></p>
-    {% endif %}
-  </div>
+{% if error_msg %}
+    <p style="color: red;"><strong>{{ error_msg }}</strong></p>
+{% elif score_data %}
+    <h3>{{ city_display }}</h3>
+    <h1>Final Environmental Score: {{ score_data.final_score }} / 100</h1>
 
-  <div class="w3-row w3-padding-64 w3-center">
-    <h1 class="w3-text-teal">Environmental Analysis</h1>
-    <div>
-      <p>Current Score: --</p>
-      <p>Daily Average: --</p>
-    </div>
-  </div>
-
-  <div class="w3-row w3-padding-32 w3-center" style="margin-left: 1%">
-    <h2 class="w3-text-teal">Overall Index</h2>
-    <h1 class="w3-text-teal" style="font-size:100px">--</h1>
-    <h2 class="w3-text-teal">Current Status</h2>
-    <h1 class="w3-text-teal" style="font-size:60px">Pending Data</h1>
-  </div>
+    <table border="1" cellpadding="8" cellspacing="0" style="margin: 0 auto;">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Soil & Precipitation (40% Weight)</strong></td>
+                <td><strong>{{ score_data.soil_precip_score }} / {{ score_data.soil_precip_max }}</strong></td>
+            </tr>
+            <tr><td>Soil Moisture</td><td>{{ score_data.breakdown.moisture_score }} / 3</td></tr>
+            <tr><td>Soil Temperature</td><td>{{ score_data.breakdown.temp_score }} / 2</td></tr>
+            <tr><td>Precipitation</td><td>{{ score_data.breakdown.precip_score }} / 3</td></tr>
+            <tr>
+                <td><strong>World Bank Environment (60% Weight)</strong></td>
+                <td><strong>{{ score_data.environment_score }} / {{ score_data.environment_max }}</strong></td>
+            </tr>
+            <tr><td>CO2 Emissions</td><td>{{ score_data.breakdown.co2_score }} / 5</td></tr>
+            <tr><td>Forest Cover</td><td>{{ score_data.breakdown.forest_score }} / 5</td></tr>
+            <tr><td>Protected Biodiversity</td><td>{{ score_data.breakdown.biodiv_score }} / 4</td></tr>
+            <tr><td>Water Stress</td><td>{{ score_data.breakdown.water_score }} / 4</td></tr>
+        </tbody>
+    </table>
+{% else %}
+    <p>Enter a city above to calculate its Environmental Score.</p>
+{% endif %}
+</div>
 
   <div class="w3-row w3-padding-32" style="margin-left: 1%">
     <h2 class="w3-text-teal w3-center">How Scores Are Calculated</h2>
