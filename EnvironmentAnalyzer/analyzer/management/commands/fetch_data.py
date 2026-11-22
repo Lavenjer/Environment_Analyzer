@@ -54,12 +54,12 @@ class Command(BaseCommand):
                 timestamp=dt,
                 defaults={
                     "precipitation_sum": daily["precipitation_sum"][i],
-                    "soil_moisture_10cm": (
+                    "soil_moisture_7cm": (
                         hourly["soil_moisture_3_to_9cm"][h_idx]
                         if h_idx is not None
                         else None
                     ),
-                    "soil_temperature_10cm": (
+                    "soil_temperature_7cm": (
                         hourly["soil_temperature_6cm"][h_idx]
                         if h_idx is not None
                         else None

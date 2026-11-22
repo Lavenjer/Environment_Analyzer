@@ -25,7 +25,7 @@
 <div class="w3-top">
   <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-theme-l1">Home</a>
+    <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-theme-l1">Index</a>
     <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Acknowledgements</a>
   </div>
 </div>
@@ -36,8 +36,8 @@
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="{% url 'home' %}">Environmental Data</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Analysis & Scores</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="{% url 'page' %}">Environmental Data</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="{% url 'analysis' %}">Analysis & Scores</a>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->

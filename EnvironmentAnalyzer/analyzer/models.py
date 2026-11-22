@@ -24,7 +24,7 @@ class WorldBankEnvironmentData(models.Model):
     #Locations and time
     country_iso3 = models.CharField(max_length=3, default="USA")
     year = models.IntegerField()
-
+    
     #Biodiversity, forest cover, CO2 emissions, and water stress values
     co2_emissions = models.FloatField(null=True, blank=True)
     forest_cover_percent = models.FloatField(null=True, blank=True)

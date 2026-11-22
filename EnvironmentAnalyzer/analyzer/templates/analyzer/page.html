@@ -25,13 +25,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <div class="w3-top">
   <div class="w3-bar w3-theme w3-top w3-left-align w3-large">
     <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-theme-l1">Logo</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">About</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Values</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">News</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Contact</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Clients</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-hide-medium w3-hover-white">Partners</a>
+    <a href="{% url 'index' %}" class="w3-bar-item w3-button w3-theme-l1">Index</a>
+    <a href="{% url 'acknowledgements' %}" class="w3-bar-item w3-button w3-hide-small w3-hover-white">Acknowledgements</a>
   </div>
 </div>
 
@@ -41,10 +36,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
     <i class="fa fa-remove"></i>
   </a>
   <h4 class="w3-bar-item"><b>Menu</b></h4>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
-  <a class="w3-bar-item w3-button w3-hover-black" href="#">Link</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="{% url 'page' %}">Environmental Data</a>
+  <a class="w3-bar-item w3-button w3-hover-black" href="{% url 'analysis' %}">Analysis & Scores</a>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -52,6 +45,79 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 
 <!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
 <div class="w3-main" style="margin-left:250px">
+
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h2>Raw Ecosystem & Environmental Data</h2>
+
+      <form method="GET" action="{% url 'page' %}">
+        <input
+          type="text"
+          name="city"
+          value="{{ city_query }}"
+          placeholder="Enter a U.S. city (or leave blank for all)"
+    />
+        <button type="submit">Search</button>
+        <a href="{% url 'page' %}">Show All</a>
+      </form>
+
+      {% if error_msg %}
+          <p style="color: red;"><strong>{{ error_msg }}</strong></p>
+      {% elif city_display %}
+          <p>Showing raw data for <strong>{{ city_display }}</strong></p>
+      {% endif %}
+
+      <h3>Open-Meteo Ecosystem Data</h3>
+      <table border="1" cellpadding="8" cellspacing="0">
+          <thead>
+              <tr>
+                  <th>Date</th>
+                  <th>Precipitation (mm)</th>
+                  <th>Soil Moisture (7cm)</th>
+                  <th>Soil Temp (7cm, °C)</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for row in meteo_data %}
+              <tr>
+                  <td>{{ row.timestamp|date:"Y-m-d" }}</td>
+                  <td>{{ row.precipitation_sum|floatformat:2|default:"N/A" }}</td>
+                  <td>{{ row.soil_moisture_7cm|floatformat:3|default:"N/A" }}</td>
+                  <td>{{ row.soil_temperature_7cm|floatformat:1|default:"N/A" }}</td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="6">No Open-Meteo records found.</td></tr>
+              {% endfor %}
+          </tbody>
+      </table>
+
+<h3>World Bank Environmental Data (USA)</h3>
+<table border="1" cellpadding="8" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>CO2 Emissions</th>
+            <th>Forest Cover (%)</th>
+            <th>Protected Biodiversity (%)</th>
+            <th>Water Stress (%)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in wb_data %}
+        <tr>
+            <td>{{ row.year }}</td>
+            <td>{{ row.co2_emissions|floatformat:2|default:"N/A" }}</td>
+            <td>{{ row.forest_cover_percent|floatformat:2|default:"N/A" }}</td>
+            <td>{{ row.protected_biodiversity_percent|floatformat:2|default:"N/A" }}</td>
+            <td>{{ row.water_stress|floatformat:2|default:"N/A" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6">No World Bank records found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+    </div>
+  </div>
 
   <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
