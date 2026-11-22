@@ -9,10 +9,12 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--lat", type=float, required=True)
         parser.add_argument("--lon", type=float, required=True)
+        parser.add_argument("--country", type=str, default="US")
 
     def handle(self, *args, **options):
         lat = round(options["lat"], 2)
         lon = round(options["lon"], 2)
+        country = options["country"].upper()
 
         self.fetch_open_meteo_forecast(lat, lon)
 
@@ -20,7 +22,7 @@ class Command(BaseCommand):
         if not WorldBankEnvironmentData.objects.filter(country_iso3="USA").exists():
             self.fetch_world_bank(country="USA", date_range="2015:2024")
 
-        self.stdout.write(self.style.SUCCESS(f"Data ready for ({lat}, {lon})"))
+        self.stdout.write(self.style.SUCCESS(f"Data ready for ({lat}, {lon}) [country]"))
 
     def fetch_open_meteo_forecast(self, lat, lon):
         url = "https://api.open-meteo.com/v1/forecast"

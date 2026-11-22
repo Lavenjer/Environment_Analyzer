@@ -57,6 +57,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
           value="{{ city_query }}"
           placeholder="Enter a U.S. city (or leave blank for all)"
     />
+        <input
+        type="text"
+        name="country"
+        value="{{ country_query }}"
+        placeholder="Country (optional, e.g., Canada or CA)"
+    />
         <button type="submit">Search</button>
         <a href="{% url 'page' %}">Show All</a>
       </form>
