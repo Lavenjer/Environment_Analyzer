@@ -12,7 +12,6 @@ def _get_city_data(city_query, country_query=""):
     error_msg = None
 
     if city_query:
-        # Split "City, Country" if a comma is present
         city_name = city_query
         country_filter = country_query.lower() if country_query else None
 
@@ -126,7 +125,6 @@ def analysis(request):
         "co2_forecast": co2_forecast,
     }
     return render(request, "analyzer/analysis.html", context)
-
 
 def acknowledgements(request):
     return render(request, "analyzer/acknowledgements.html")

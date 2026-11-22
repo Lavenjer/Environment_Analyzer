@@ -59,6 +59,15 @@
 {% elif score_data %}
     <h3>{{ city_display }}</h3>
     <h1>Final Environmental Score: {{ score_data.final_score }} / 100</h1>
+    {% if score_data.final_Score >= 80 %}
+    <h1 style="font-weight: bold; color: black;">Very Healthy Environment</h1>
+    {% elif score_data.final_score >= 60 %}
+    <h1 style="font-weight: bold; color: black;">Healthy Environment</h1>
+    {% elif score_data.final_score >= 40 %}
+    <h1 style="font-weight: bold; color: black;">Decent Environment</h1>
+    {% else %}
+    <h1 style="font-weight: bold; color: black;">Unhealthy Environment</h1>
+    {% endif %}
 
     <table border="1" cellpadding="8" cellspacing="0" style="margin: 0 auto;">
         <thead>
@@ -149,18 +158,18 @@
         Environment Data:
       </li>
       <ul>
-        <li>CO2 Emission: The CO2 Emission in the environment. The ideal level is 0-50 Mt.</li>
-        <li>Forest Cover: The percentage of Forest cover in the US, as it covers roughly 35% of land area.</li>
-        <li>Protected Biodiversity: The percentage of the protected biodiveristy as projected will be 30% by 2030.</li>
-        <li>Water Stress: The percentage of demand for fresh water exceeds the available supply during a period of time. Ideal range is 0-10%.</li>
+        <li>CO2 Emission (Weight=16.66..%) The ideal level is 0-50 Mt. </li>
+        <li>Forest Cover (Weight=16.66..%) The percentage of Forest cover in the US, as it covers roughly 35% of land area.</li>
+        <li>Protected Biodiversity (Weight=13.33..%) The percentage of the protected biodiveristy as projected will be 30% by 2030.</li>
+        <li>Water Stress (Weight=13.33..%) The percentage of demand for fresh water exceeds the available supply during a period of time. Ideal range is 0-10%.</li>
       </ul>
       <li>
         Soil and Precipitation
       </li>
       <ul>
-        <li>Soil Moisture: Evaluate depends on plant time and soil types. The sample threshold is between 20-40%.</li>
-        <li>Soil Temperature: Evaluate depends on plant time and soil types. The sample temperature threshold is 15-30C.</li>
-        <li>Precipitation: The precipitation measure for different soil types. The sample threshold is typically 10mm to 20mm.</li>
+        <li>Soil Moisture (Weight=15%): Evaluate depends on plant time and soil types.</li>
+        <li>Soil Temperature (Weight=10%): Evaluate depends on plant time and soil types. The sample temperature threshold is 15-30C.</li>
+        <li>Precipitation (Weight=15%): The precipitation measure for different soil types. The sample threshold is typically 10mm to 20mm.</li>
       </ul>
     </ul>
     
