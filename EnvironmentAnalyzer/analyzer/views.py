@@ -6,3 +6,4 @@ def home(request):
         'status': 'Active',
     }
     return render(request, 'analyzer/index.html', context)
+#This file connects the urls.py and models.py to the html files.
