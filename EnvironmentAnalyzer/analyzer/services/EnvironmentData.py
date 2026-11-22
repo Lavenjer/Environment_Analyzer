@@ -8,23 +8,20 @@ class EnvironmentData():
         self.water = water_stress
 
     def co2_emissions(self):
-        # Assume the Atmospheric CO2 level is between 280 and 350 ppm
-        # for reference, see more: Net Zero Emissions
         # The scale ranges 0-5:
-        # 5 if the level is 280-350 ppm
-        # 4 if the level is 350-400 ppm
-        # 3 if the level is 400-450 ppm
-        # 2 if the level is 450-550 ppm
-        # 1 if the level is 550-700 ppm
-        # 0 if the level is 700+ ppm
-        if (self.co2 <= 350): return 5
-        elif (self.co2 > 350 and self.co2 <= 400): return 4
-        elif (self.co2 > 400 and self.co2 <= 450): return 3
-        elif (self.co2 > 450 and self.co2 <= 550): return 2
-        elif (self.co2 > 550 and self.co2 <= 700): return 1
-        elif (self.co2 > 700): return 0
+        # 5 if the level is 0-50 Mt co2
+        # 4 if the level is 50-200 Mt co2
+        # 3 if the level is 200-500 Mt co2
+        # 2 if the level is 500-1000 Mt co2
+        # 1 if the level is 1000-2500 Mt co2
+        # 0 if the level is 2500 Mt co2
+        if (self.co2 <= 50): return 5
+        elif (self.co2 > 50 and self.co2 <= 200): return 4
+        elif (self.co2 > 200 and self.co2 <= 500): return 3
+        elif (self.co2 > 500 and self.co2 <= 1000): return 2
+        elif (self.co2 > 1000 and self.co2 <= 2500): return 1
+        elif (self.co2 > 2500): return 0
         
-
     def forest_cover(self):
         # In terms of the US, Forest cover roughly 35% of land area.
         # The scale ranges 0-5:

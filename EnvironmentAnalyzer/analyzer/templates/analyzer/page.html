@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>-
+<head>
 <title>Worcester Weather</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +47,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <div class="w3-main w3-center" style="margin-left:250px">
 
   <div class="w3-row w3-padding-64 w3-center w3-text-teal">
-    <div class="w3-twothird w3-container w3-center">
+    <div class="w3-text-teal w3-center w3-padding-64 w3-center">
       <h2>Raw Ecosystem & Environmental Data</h2>
 
       <form method="GET" action="{% url 'page' %}">
@@ -128,7 +128,13 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
   <div class="w3-row w3-padding-64">
     <div class="w3-twothird w3-container">
       <h1 class="w3-text-teal">What do these values mean?</h1>
-      <p></p>
+      <p>Precipitation: All forms of water falling from the sky. This includes rain, hail, snow, and more.</p>
+      <p>Soil Moisture: The amount of water within the pores of the soil. Typically between 20%-60% is best for most crops.</p>
+      <p>Soil Temperature: The temperature of the soil to a certain depth. Many plants differ in terms of optimal soil temperature. However, this scale asesses according to an average.</p>
+      <p>CO2 Emissions: The amount of carbon dioxide released into the atmosphere measured in million metric tonnes. This has a plethora of effects on the environment.</p>
+      <p>Forest Cover: The percentage of the country's land which is covered by forests.</p>
+      <p>Protected Biodiversity: The variety of ecosystems and living organisms which are actively protected by the government</p>
+      <p>Water Stress: The ratio of total freshwater used to the total renewable freshwater sources in a country. A ratio over 100% means that country is using more water than it can renew.</p>
     </div>
   </div>
 
