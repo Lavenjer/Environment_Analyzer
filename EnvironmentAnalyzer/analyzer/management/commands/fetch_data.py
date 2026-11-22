@@ -19,10 +19,10 @@ class Command(BaseCommand):
         self.fetch_open_meteo_forecast(lat, lon)
 
         # Only fetch USA World Bank data once (it is national and annual)
-        if not WorldBankEnvironmentData.objects.filter(country_iso3="USA").exists():
-            self.fetch_world_bank(country="USA", date_range="2015:2024")
+        if not WorldBankEnvironmentData.objects.filter(country_iso3=country).exists():
+            self.fetch_world_bank(country=country, date_range="2015:2024")
 
-        self.stdout.write(self.style.SUCCESS(f"Data ready for ({lat}, {lon}) [country]"))
+        self.stdout.write(self.style.SUCCESS(f"Data ready for ({lat}, {lon}) [{country}]"))
 
     def fetch_open_meteo_forecast(self, lat, lon):
         url = "https://api.open-meteo.com/v1/forecast"
